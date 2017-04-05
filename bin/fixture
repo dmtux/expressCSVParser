@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+let faker = require('faker');
+let fs = require('fs');
+let os = require('os');
+let writer = fs.createWriteStream('./public/fixture.csv', {flags: 'w'});
+let ProgressBar = require('ascii-progress');
+
+
+writer.on('finish', () => {
+  console.error('data has been saved successfully');
+});
+
+let i = 0;
+// Let's make 6gb file for testing purposes
+let iFinish = 1000 * 153600 / 10;
+let ok;
+let startTime = new Date();
+console.log(`start writing large fixture with ${iFinish} lines. Free memory ${os.freemem()}`);
+
+// let bar = new ProgressBar({
+//   schema: ' [:filled.gradient(red,magenta):blank] :current/:total :percent :elapseds :etas',
+//   total : iFinish
+// });
+
+function write() {
+  writer.write(`FirstName, Surname, Email${os.EOL}`);
+  do {
+    if (i > 0) {
+      console.log(`
+        Writing line - ${i} from ${iFinish} percent ~ ${Math.floor((i / iFinish) * 100)}.
+        Free memory ${os.freemem() / 1000000} MB. Execution time ${(new Date() - startTime) * 0.001}s.
+      `);
+      // bar.tick();
+    }
+    let randomRow = `${faker.name.firstName()}, ${faker.name.lastName()}, ${faker.internet.email()}${os.EOL}`;
+    ok = writer.write(randomRow);
+
+    i++;
+  } while (i < iFinish && ok);
+  if (i < iFinish) {
+    // had to stop early!
+    // write some more once it drains
+    writer.once('drain', write);
+  }
+};
+
+write();

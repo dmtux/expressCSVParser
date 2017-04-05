@@ -38,3 +38,8 @@ jspm_packages
 
 #Storm
 .idea
+
+#CSV
+public/fixture.csv
+public/uploads
+

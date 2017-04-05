@@ -1,0 +1,21 @@
+{
+  "name": "expresscsvparser",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Denis Melskiy <tuxoff@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dmtux/expressCSVParser",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "blueimp-file-upload": "jQuery-File-Upload#^9.18.0",
+    "jquery-ui": "^1.12.1"
+  }
+}
