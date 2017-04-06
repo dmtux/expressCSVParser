@@ -27,8 +27,9 @@
 <script>
     $(document).ready(function () {
         $('#example').DataTable({
-            "ajax": "/api/users/{{source}}",
-            "deferRender": true,
+            "ajax": {url: "/api/users/{{source}}", type: "POST"},
+            "processing": true,
+            "serverSide": true,
             "columns": [
                 { "data": "id" },
                 { "data": "firstname" },

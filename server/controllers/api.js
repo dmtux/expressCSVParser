@@ -6,6 +6,8 @@ let fs = require('fs');
 let path = require('path');
 let models = require('../models');
 let fastCsv = require('fast-csv');
+let datatable = require(`sequelize-datatables`);
+
 
 router.get('/parse/:file', function (req, res, next) {
   let userObjects = [];
@@ -48,21 +50,19 @@ router.get('/parse/:file', function (req, res, next) {
         });
     });
 });
+
 router.get('/datatable/:file', function (req, res, next) {
   res.render('datatable', {title: 'Datable', source: req.params.file});
 });
 
 router.post('/users/:file', function (req, res) {
-  let Model = models.clients,
-    datatablesQuery = require('datatables-query'),
-    params = req.body,
-    query = datatablesQuery(Model);
-  console.log(params);
-  query.run(params).then(function (data) {
-    res.json(data);
-  }, function (err) {
-    res.status(500).json(err);
-  });
+  datatable(models.clients, req.body, {
+    where: {source: req.params.file}
+  })
+    .then((result) => {
+      // result is response for datatables
+      res.json(result);
+    });
 });
 
 module.exports = router;

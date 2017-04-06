@@ -13,7 +13,6 @@
     "connect-multiparty": "^2.0.0",
     "cookie-parser": "~1.4.3",
     "crypto": "0.0.3",
-    "datatables-query": "^0.2.0",
     "debug": "~2.6.0",
     "dotenv-safe": "^4.0.3",
     "express": "~4.14.1",
@@ -23,6 +22,7 @@
     "morgan": "~1.7.0",
     "sequelize": "^3.30.4",
     "sequelize-cli": "^2.7.0",
+    "sequelize-datatables": "^1.2.0",
     "serve-favicon": "~2.3.2",
     "sqlite3": "^3.1.8"
   }
