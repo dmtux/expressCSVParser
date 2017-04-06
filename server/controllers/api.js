@@ -8,13 +8,13 @@ let models = require('../models');
 let fastCsv = require('fast-csv');
 let datatable = require(`sequelize-datatables`);
 
-
 router.get('/parse/:file', function (req, res, next) {
   let userObjects = [];
   let filePath = path.join(__dirname, `../../public/uploads/${req.params.file}`);
   if (!fs.existsSync(filePath)) {
     res.status(404).send('Not found');
   }
+  // TODO: Add file validation
   var fileStream = fs.createReadStream(filePath),
     parser = fastCsv();
 
@@ -29,11 +29,13 @@ router.get('/parse/:file', function (req, res, next) {
       parser.end();
     });
 
+  // TODO: Should be refactored to raw sql and chunks
   let lineCounter = 0;
   parser
     .on("readable", function () {
       var data;
       while ((data = parser.read()) !== null) {
+        // TODO: Add email validation
         let userObject = models.clients.build({
           firstname: data[0],
           lastname: data[1],
