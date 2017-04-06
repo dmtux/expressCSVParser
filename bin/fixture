@@ -17,8 +17,7 @@ writer.on('finish', () => {
 });
 
 let i = 0;
-// Let's make big file for testing purposes
-let iFinish = 1000 * 153600 / 10;
+let iFinish = 1000 * 10000;
 let ok;
 let startTime = new Date();
 console.log(`start writing large fixture with ${iFinish} lines. Free memory ${os.freemem()}`);

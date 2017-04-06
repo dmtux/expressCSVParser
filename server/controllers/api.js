@@ -52,18 +52,16 @@ router.get('/datatable/:file', function (req, res, next) {
   res.render('datatable', {title: 'Datable', source: req.params.file});
 });
 
-router.get('/users/:file', function (req, res, next) {
-  console.log('eher');
-  models.clients.findAll({
-    where: {
-      source: req.params.file
-    }
-  }).then((result) => {
-    return result.map((item) => {
-      return item.toJSON();
-    });
-  }).then((json) => {
-    res.send({data: json});
+router.post('/users/:file', function (req, res) {
+  let Model = models.clients,
+    datatablesQuery = require('datatables-query'),
+    params = req.body,
+    query = datatablesQuery(Model);
+  console.log(params);
+  query.run(params).then(function (data) {
+    res.json(data);
+  }, function (err) {
+    res.status(500).json(err);
   });
 });
 
