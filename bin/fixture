@@ -23,11 +23,6 @@ let ok;
 let startTime = new Date();
 console.log(`start writing large fixture with ${iFinish} lines. Free memory ${os.freemem()}`);
 
-// let bar = new ProgressBar({
-//   schema: ' [:filled.gradient(red,magenta):blank] :current/:total :percent :elapseds :etas',
-//   total : iFinish
-// });
-
 function write() {
   writer.write(`FirstName, Surname, Email${os.EOL}`);
   do {

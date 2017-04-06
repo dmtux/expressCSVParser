@@ -1,1 +1,43 @@
 <h1>Datatable</h1>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>firstname</th>
+        <th>lastname</th>
+        <th>email</th>
+        <th>source</th>
+        <th>createdAt</th>
+        <th>updatedAt</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>id</th>
+        <th>firstname</th>
+        <th>lastname</th>
+        <th>email</th>
+        <th>source</th>
+        <th>createdAt</th>
+        <th>updatedAt</th>
+    </tr>
+    </tfoot>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "ajax": "/api/users/{{source}}",
+            "deferRender": true,
+            "columns": [
+                { "data": "id" },
+                { "data": "firstname" },
+                { "data": "lastname" },
+                { "data": "email" },
+                { "data": "source" },
+                { "data": "createdAt" },
+                { "data": "updatedAt" }
+            ]
+        });
+    });
+</script>

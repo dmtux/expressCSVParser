@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Client = sequelize.define("client", {
+  var Clients = sequelize.define("clients", {
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -11,5 +11,5 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: DataTypes.DATE
   });
 
-  return Client;
+  return Clients;
 };
