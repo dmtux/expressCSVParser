@@ -107,10 +107,8 @@ module.exports = resumable = function (temporaryFolder) {
     let validation = validateRequest(chunkNumber, chunkSize, totalSize, identifier, files[$.fileParameterName].size);
     if (validation == 'valid') {
       let chunkFilename = getChunkFilename(chunkNumber, identifier);
-
       // Save the chunk (TODO: OVERWRITE)
       fs.rename(files[$.fileParameterName].path, chunkFilename, function () {
-
         // Do we have all the chunks?
         let currentTestChunk = 1;
         let numberOfChunks = Math.max(Math.floor(totalSize / (chunkSize * 1.0)), 1);
@@ -182,27 +180,19 @@ module.exports = resumable = function (temporaryFolder) {
 
   $.clean = function (identifier, options) {
     options = options || {};
-
     // Iterate over each chunk
     let pipeChunkRm = function (number) {
-
       let chunkFilename = getChunkFilename(number, identifier);
-
       //console.log('removing pipeChunkRm ', number, 'chunkFilename', chunkFilename);
       fs.exists(chunkFilename, function (exists) {
         if (exists) {
-
-          console.log('exist removing ', chunkFilename);
+          // console.log('exist removing ', chunkFilename);
           fs.unlink(chunkFilename, function (err) {
             if (err && options.onError) options.onError(err);
           });
-
           pipeChunkRm(number + 1);
-
         } else {
-
           if (options.onDone) options.onDone();
-
         }
       });
     };

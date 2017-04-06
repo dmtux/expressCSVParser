@@ -1,3 +1,5 @@
+'use strict';
+require('dotenv-safe').load({ allowEmptyValues: true });
 let express = require('express');
 let path = require('path');
 let favicon = require('serve-favicon');
@@ -8,6 +10,7 @@ let multipart = require('connect-multiparty');
 
 let index = require('./server/controllers/index');
 let upload = require('./server/controllers/upload');
+let api = require('./server/controllers/api');
 
 let app = express();
 
@@ -26,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/', upload);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

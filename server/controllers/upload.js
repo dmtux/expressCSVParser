@@ -2,12 +2,11 @@ let express = require('express');
 let router = express.Router();
 let path = require('path');
 let fs = require('fs');
-let resumable = require('./resumable-node.js')(path.join(__dirname, '../../public/uploads/'));
+let resumable = require('./vendor/resumable-node.js')(path.join(__dirname, '../../public/uploads/'));
 
 // Handle uploads through Resumable.js
 router.post('/upload', function (req, res) {
   resumable.post(req, function (status, filename, original_filename, identifier) {
-    let time = Date.now();
     let response = function () {
       status.length > 0 ? res.send(status) : res.send('Done');
     };
@@ -16,7 +15,7 @@ router.post('/upload', function (req, res) {
     };
 
     if (status == 'done') {
-      let filePath = path.join(__dirname, `../../public/uploads/${time}${filename}`);
+      let filePath = path.join(__dirname, `../../public/uploads/${identifier}`);
       let fileExists = fs.existsSync(filePath);
       if (!fileExists) {
         let stream = fs.createWriteStream(filePath);

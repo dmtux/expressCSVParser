@@ -17,7 +17,7 @@ writer.on('finish', () => {
 });
 
 let i = 0;
-// Let's make 6gb file for testing purposes
+// Let's make big file for testing purposes
 let iFinish = 1000 * 153600 / 10;
 let ok;
 let startTime = new Date();
